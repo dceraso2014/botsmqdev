@@ -56,6 +56,7 @@ send Receipts, and use Carousels.
 
 var restify = require('restify');
 var builder = require('botbuilder');
+var botbuilder_azure = require("botbuilder-azure");
 //var builder = require('../../core/');
 
 //=========================================================
@@ -77,7 +78,8 @@ var inMemoryStorage = new builder.MemoryBotStorage();
 // Create chat bot
 var connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appPassword: process.env.MICROSOFT_APP_PASSWORD,
+    openIdMetadata: process.env.BotOpenIdMetadata
 });
 
 var bot = new builder.UniversalBot(connector).set('storage', inMemoryStorage); // Register in memory storage;
