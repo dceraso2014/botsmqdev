@@ -57,8 +57,8 @@ bot.dialog('/', [
     function (session) {
         // Send a greeting and show help.
         var card = new builder.HeroCard(session)
-            .title("Arcorito Bot")
-            .text("Soy tu asistente virtual.")
+            .title("Hola soy Arcorito")
+            .text("Tu asistente virtual.")
             .images([
                  builder.CardImage.create(session, "http://imagizer.imageshack.us/a/img923/2918/22q2kH.png")
             ]);
@@ -76,7 +76,7 @@ bot.dialog('/', [
 bot.dialog('/menu', [
     function (session) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)");
-        builder.Prompts.choice(session, "Con que te podemos ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|(Salir)", { listStyle: 4 });
+        builder.Prompts.choice(session, "Con que te puedo ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|(Salir)", { listStyle: 4 });
     },
     function (session, results) {
         if (results.response && results.response.entity != '(Salir)') {
@@ -97,7 +97,7 @@ bot.dialog('/menu', [
 bot.dialog('/Problemas con Office?', [
     function (session, results) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)" );
-        builder.Prompts.choice(session, "Con que te puedo ayudar?", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
+        builder.Prompts.choice(session, "Indicame con que tenes problemas.", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
         
     },
   
@@ -112,7 +112,7 @@ bot.dialog('/Microsoft Excel?', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -126,7 +126,7 @@ bot.dialog('/Microsoft Word?', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -140,7 +140,7 @@ bot.dialog('/Microsoft Power Point?', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -156,7 +156,7 @@ bot.dialog('/Microsoft Power Point?', [
 
 bot.dialog('/Problemas con el Correo?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Con que te puedo ayudar?", "No puedo enviar correos|Outlook no coectal al servidor|(Salir)", { listStyle: 4 } );
+                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No puedo enviar correos|Outlook no coectal al servidor|(Salir)", { listStyle: 4 } );
     },
   
     function (session, results) {
@@ -170,7 +170,7 @@ bot.dialog('/No puedo enviar correos', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -184,7 +184,7 @@ bot.dialog('/Outlook no coectal al servidor', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -199,7 +199,7 @@ bot.dialog('/Outlook no coectal al servidor', [
 
 bot.dialog('/Problemas de impresión?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Con que te puedo ayudar?", "No encuentro mi impresora|La impresora no imprime|(Salir)", { listStyle: 4 } );
+                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No encuentro mi impresora|La impresora no imprime|(Salir)", { listStyle: 4 } );
     },
   
     function (session, results) {
@@ -213,7 +213,7 @@ bot.dialog('/No encuentro mi impresora', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -227,7 +227,7 @@ bot.dialog('/La impresora no imprime', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
        // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.)", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
