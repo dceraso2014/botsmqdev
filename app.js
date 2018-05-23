@@ -6,6 +6,15 @@ var restify = require('restify');
 var builder = require('botbuilder');
 //var botbuilder_azure = require("botbuilder-azure");
 
+var rn = require('random-number');
+var gen = rn.generator({
+  min:  10000
+, max:  99999
+, integer: true
+})
+
+const numero_ticket = gen(500);
+ // example outputs → 735
 
 //var axios = require("axios");
 //var url = "https://api.mercadolibre.com/sites/MLA/search?q=chromecast";
@@ -110,8 +119,7 @@ bot.dialog('/Problemas con Office?', [
 
 bot.dialog('/Microsoft Excel?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -124,8 +132,7 @@ bot.dialog('/Microsoft Excel?', [
 
 bot.dialog('/Microsoft Word?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -138,8 +145,7 @@ bot.dialog('/Microsoft Word?', [
 
 bot.dialog('/Microsoft Power Point?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -168,8 +174,7 @@ bot.dialog('/Problemas con el Correo?', [
 
 bot.dialog('/No puedo enviar correos', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -182,8 +187,7 @@ bot.dialog('/No puedo enviar correos', [
 
 bot.dialog('/Outlook no coectal al servidor', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -211,8 +215,7 @@ bot.dialog('/Problemas de impresión?', [
 
 bot.dialog('/No encuentro mi impresora', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -225,8 +228,7 @@ bot.dialog('/No encuentro mi impresora', [
 
 bot.dialog('/La impresora no imprime', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro ']xxxx', un especialista de mesa de ayuda lo contactara");
-       // builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 3 });
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
