@@ -55,7 +55,7 @@ var bot = new builder.UniversalBot(connector);
 bot.dialog('/', [
     function (session) {
 
-        console.log(session.userData.profile);
+        
     
 
         // Send a greeting and show help.
@@ -68,8 +68,9 @@ bot.dialog('/', [
         //var msg = new builder.Message(session).attachments([card]);
         //session.send(msg);
 
-        var userName = session.userData.userName;
-        session.send("User %s .", userName);
+        console.log(session.message.user.name);
+        console.log(session.userData);
+        session.send("User %s .",  );
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
         session.beginDialog('/menu');
     },
