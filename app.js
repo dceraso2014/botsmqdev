@@ -4,6 +4,7 @@ A simple echo bot for the Microsoft Bot Framework.
 
 var restify = require('restify');
 var builder = require('botbuilder');
+
 //var botbuilder_azure = require("botbuilder-azure");
 
 var rn = require('random-number');
@@ -16,22 +17,8 @@ var gen = rn.generator({
 const numero_ticket = gen(500);
  // example outputs → 735
 
-//var axios = require("axios");
-//var url = "https://api.mercadolibre.com/sites/MLA/search?q=chromecast";
 
-/*
-axios.get(url).then(function(resp){
-  // respuesta completa en formato json
-   // console.log(resp.data);
- 
-  // recorro el json y obtengo el precio de cada item encontrado.
-  resp.data.results.forEach(function(row){
-      console.log(row.price); 
-     
-  }); //foreach siempre recibe una funcion como callback
-  
-});
-*/
+
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -62,10 +49,14 @@ server.post('/api/messages', connector.listen());
 var bot = new builder.UniversalBot(connector);
 //bot.set('storage', tableStorage);
 
+
+
+
 bot.dialog('/', [
     function (session) {
 
-        console.log(session);
+        console.log(session.userData.name);
+    
 
         // Send a greeting and show help.
         var card = new builder.HeroCard(session)
