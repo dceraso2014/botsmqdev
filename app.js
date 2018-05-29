@@ -64,6 +64,9 @@ var bot = new builder.UniversalBot(connector);
 
 bot.dialog('/', [
     function (session) {
+
+        console.log(session);
+
         // Send a greeting and show help.
         var card = new builder.HeroCard(session)
             .title("Hola soy Arcorito")
