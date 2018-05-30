@@ -68,7 +68,7 @@ bot.dialog('/', [
         //var msg = new builder.Message(session).attachments([card]);
         //session.send(msg);
 
-        //console.log(session.message.user.name);
+        console.log(session.message.user.name);
        // console.log(session.userData);
         session.send("User %s .");
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
