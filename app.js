@@ -68,10 +68,16 @@ bot.dialog('/', [
         //var msg = new builder.Message(session).attachments([card]);
         //session.send(msg);
 
-        console.log(session.message.user.name);
-        console.log(session.message.user.id);
+       // console.log(session.message.user.name);
+       // console.log(session.message.user.id);
        // console.log(session.userData);
-        session.send("User %s .");
+       var siplargo = session.message.user.id;
+       var sipcorto = siplargo.slice(3, -1); 
+
+ 
+
+        session.send("En que te puedo ayudar hoy %s .", session.message.user.name);
+        session.send("Tu correo electronico es: %s ." , sipcorto);
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
         session.beginDialog('/menu');
     },
