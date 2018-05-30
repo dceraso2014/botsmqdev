@@ -72,7 +72,7 @@ bot.dialog('/', [
        // console.log(session.message.user.id);
        // console.log(session.userData);
        var siplargo = session.message.user.id;
-       var sipcorto = siplargo.slice(3, -1); 
+       var sipcorto = siplargo.slice(4); 
 
  
 
