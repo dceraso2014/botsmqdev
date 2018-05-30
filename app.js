@@ -2,31 +2,31 @@
 A simple echo bot for the Microsoft Bot Framework. 
 -----------------------------------------------------------------------------*/
 
-var restify = require('restify');
-var builder = require('botbuilder');
-
+const restify = require('restify');
+const builder = require('botbuilder');
+const nodeoutlook = require('nodejs-nodemailer-outlook')
 //var botbuilder_azure = require("botbuilder-azure");
 
-var rn = require('random-number');
-var gen = rn.generator({
+const rn = require('random-number');
+const gen = rn.generator({
   min:  10000
 , max:  99999
 , integer: true
 })
 
-const numero_ticket = gen(500);
+let numero_ticket = function(){ return gen(500)} ;
  // example outputs → 735
 
 
 
 // Setup Restify Server
-var server = restify.createServer();
+const server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
   
 // Create chat connector for communicating with the Bot Framework Service
-var connector = new builder.ChatConnector({
+const connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword,
     //openIdMetadata: process.env.BotOpenIdMetadata
@@ -46,11 +46,12 @@ server.post('/api/messages', connector.listen());
 //var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 
 // Create your bot with a function to receive messages from the user
-var bot = new builder.UniversalBot(connector);
+const bot = new builder.UniversalBot(connector);
 //bot.set('storage', tableStorage);
 
 
 
+let datos_usuario = {nombre:'', sip:''};
 
 bot.dialog('/', [
     function (session) {
@@ -74,8 +75,9 @@ bot.dialog('/', [
        var siplargo = session.message.user.id;
        var sipcorto = siplargo.slice(4); 
 
- 
-
+       datos_usuario.nombre = session.message.user.name;
+       datos_usuario.sip = sipcorto;
+       
         session.send("En que te puedo ayudar hoy %s .", session.message.user.name);
         session.send("Tu correo electronico es: %s ." , sipcorto);
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
@@ -90,7 +92,7 @@ bot.dialog('/', [
 bot.dialog('/menu', [
     function (session) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)");
-        builder.Prompts.choice(session, "Con que te puedo ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|(Salir)", { listStyle: 4 });
+        builder.Prompts.choice(session, "Con que te puedo ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|Recibir Correo Electronico.|(Salir)", { listStyle: 4 });
     },
     function (session, results) {
         if (results.response && results.response.entity != '(Salir)') {
@@ -161,6 +163,45 @@ bot.dialog('/Microsoft Power Point?', [
 
 ]);
 
+
+/* Dialogo para recir correo, solo testing */
+bot.dialog('/Recibir Correo Electronico.', [
+    function (session) {
+
+        
+        let json_mail = {
+            auth: {
+                user: "test.1@smartqube.com.ar",
+                pass: "Passw0rd"
+            }, from: 'Bot Arcorito <test.1@smartqube.com.ar>',
+            to: 'leonardo.bispo@newtech.com.ar',
+            subject: 'Hey you, awesome!',
+            html: '<b>This is bold text</b>',
+            text: 'This is text version!'
+            
+        };
+
+       
+        json_mail.to=datos_usuario.sip; 
+        json_mail.html="hola "+datos_usuario.nombre+"";
+        
+
+        nodeoutlook.sendEmail(json_mail);
+
+
+
+        session.send("Email Enviado "+JSON.stringify(json_mail)+"");
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+    },
+    function (session, results) {
+        //session.send("You chose '%s'", results.response.entity);
+        session.beginDialog('/' + results.response.entity);
+        //session.send("Usted dijo: '%s'", results.response);
+    }
+
+]);
+
+/* fin recibir correo */
 
 
 /* Opciones  problemas de correo */
