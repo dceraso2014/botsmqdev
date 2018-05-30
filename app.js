@@ -173,12 +173,11 @@ bot.dialog('/Recibir Correo Electronico.', [
             auth: {
                 user: "test.1@smartqube.com.ar",
                 pass: "Passw0rd"
-            }, from: 'Bot Arcorito <test.1@smartqube.com.ar>',
-            to: 'leonardo.bispo@newtech.com.ar',
+            }, 
+            from: 'Bot Arcorito <test.1@smartqube.com.ar>',
+            to: '',
             subject: 'Hey you, awesome!',
-            html: '<b>This is bold text</b>',
-            text: 'This is text version!'
-            
+            html: ''
         };
 
        
