@@ -117,7 +117,7 @@ bot.dialog('/menu', [
 bot.dialog('/Problemas con Office?', [
     function (session, results) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)" );
-        builder.Prompts.choice(session, "Indicame con que tenes problemas", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
+         builder.Prompts.choice(session, "Indicame con que tenes problemas", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
         
     },
   
@@ -335,7 +335,7 @@ bot.dialog('preguntar_tipo_note', [
 
 bot.dialog('/Problemas con el Correo?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Indicame con que tenes problemas", "No puedo enviar correos|Outlook no conecta al servidor|(Salir)", { listStyle: 4 } );
+        builder.Prompts.choice(session, "Indicame con que tenes problemas", "No puedo enviar correos?|Outlook no conecta al servidor?|(Salir)", { listStyle: 4 });
     },
   
     function (session, results) {
