@@ -499,6 +499,13 @@ bot.dialog('/No', [
 
 ]);
 
+bot.dialog('/(Salir)', [
+    function (session) {
+        session.endConversation("Ok.. Nos vemos más tarde!!");
+     }
+
+]);
+
 
 bot.dialog('/picture', [
     function (session) {
