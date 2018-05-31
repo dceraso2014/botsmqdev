@@ -62,10 +62,6 @@ let datos_usuario = {nombre:'', sip:''};
 
 bot.dialog('/', [
     function (session) {
-
-        
-    
-
         // Send a greeting and show help.
         var card = new builder.HeroCard(session)
             .title("Hola soy Arcorito")
@@ -85,8 +81,9 @@ bot.dialog('/', [
        datos_usuario.nombre = session.message.user.name;
        datos_usuario.sip = sipcorto;
        
+       session.send("Hola Soy Arcorito, tu asistente virtual.")
         session.send("En que te puedo ayudar hoy %s .", session.message.user.name);
-        session.send("Tu correo electronico es: %s ." , sipcorto);
+        //session.send("Tu correo electronico es: %s ." , sipcorto);
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
         session.beginDialog('/menu');
     },
@@ -134,7 +131,7 @@ bot.dialog('/Problemas con Office?', [
 bot.dialog('/Microsoft Excel?', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -147,7 +144,7 @@ bot.dialog('/Microsoft Excel?', [
 bot.dialog('/Microsoft Word?', [
     function (session) {
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -254,7 +251,7 @@ bot.dialog('/Su computadora no sirve?', [
                  // titulo: resp.data.results[i].title
                  // });
                  //session.send("Titulo: '%s'\n", resp.data.results[i].title);
-                 session.send("Titulo: "+resp.data.results[i].title+'\n'+"Precio: "+resp.data.results[i].price+'\n'+"Url: "+resp.data.results[i].permalink);
+                 session.send("Titulo: "+resp.data.results[i].title+'\n'+"Precio: "+resp.data.results[i].price+'"\n\n'+"Url: "+resp.data.results[i].permalink);
              }
             // console.log(resultados);
              
