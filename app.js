@@ -207,8 +207,8 @@ bot.dialog('/Microsoft Power Point?', [
             html: ''
         };
 
-        json_mail.to="diego.ceraso@smartqube.com.ar"; 
-        //json_mail.to=datos_usuario.sip; 
+        
+        json_mail.to=datos_usuario.sip; 
         
         let num_caso_real = numero_ticket();
         json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en PowerPoint fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
