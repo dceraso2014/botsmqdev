@@ -228,7 +228,7 @@ bot.dialog('/Microsoft Power Point?', [
 
 
 /* Dialogo para recir correo, solo testing */
-bot.dialog('/Recibir Correo Electronico.', [
+bot.dialog('/Recibir Correo Electronico', [
     function (session) {
 
         
@@ -345,7 +345,7 @@ bot.dialog('/Problemas con el Correo?', [
     
 ]);
 
-bot.dialog('/No puedo enviar correos', [
+bot.dialog('/No puedo enviar correos?', [
     function (session) {
         let json_mail = {
             auth: {
@@ -376,7 +376,7 @@ bot.dialog('/No puedo enviar correos', [
 
 ]);
 
-bot.dialog('/Outlook no conecta al servidor', [
+bot.dialog('/Outlook no conecta al servidor?', [
     function (session) {
         let json_mail = {
             auth: {
