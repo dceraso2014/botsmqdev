@@ -4,14 +4,21 @@ A simple echo bot for the Microsoft Bot Framework.
 
 const restify = require('restify');
 const builder = require('botbuilder');
-const nodeoutlook = require('nodejs-nodemailer-outlook')
+const nodeoutlook = require('nodejs-nodemailer-outlook');
+
+const axios = require("axios");
+
+let resultados = []; 
+let query = {producto: '', limite : 3 };
+
+ 
 //var botbuilder_azure = require("botbuilder-azure");
 
 const rn = require('random-number');
 const gen = rn.generator({
-  min:  10000
-, max:  99999
-, integer: true
+  min:  10000,
+  max:  99999,
+  integer: true
 })
 
 let numero_ticket = function(){ return gen(500)} ;
@@ -183,10 +190,7 @@ bot.dialog('/Recibir Correo Electronico.', [
        
         json_mail.to=datos_usuario.sip; 
         json_mail.html="hola "+datos_usuario.nombre+"";
-        
-
-        nodeoutlook.sendEmail(json_mail);
-
+      
 
 
         session.send("Email Enviado "+JSON.stringify(json_mail)+"");
@@ -202,6 +206,73 @@ bot.dialog('/Recibir Correo Electronico.', [
 
 /* fin recibir correo */
 
+/* Inicia Ml */
+/*
+bot.dialog('/Su computadora no sirve?', [
+    function (session) {
+
+        axios.get(url).then(function(resp) {   
+           for(var i=0; i<resp.data.results.length; i++){
+                // resultados.push({
+                // url: resp.data.results[i].permalink,
+                // precio: resp.data.results[i].price,
+                // titulo: resp.data.results[i].title
+                // });
+                //session.send("Titulo: '%s'\n", resp.data.results[i].title);
+                session.send("Titulo: "+resp.data.results[i].title+'\n'+"Precio: "+resp.data.results[i].price+'\n'+"Url: "+resp.data.results[i].permalink);
+            }
+            console.log(resultados);
+            
+            //session.send(JSON.stringify(resultados)); 
+    });
+
+
+       
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+    }
+
+]);
+*/
+bot.dialog('/Su computadora no sirve?', [
+    function (session) {
+        session.beginDialog('preguntar_tipo_note');
+    },
+    function (session, results) {
+        
+        query.producto=results.response;
+         
+        const url_base = "https://api.mercadolibre.com/sites/MLA/search?q=";
+        let armar_url = (base,query) => { return base+query.producto+'&limit='+query.limite};
+        let url = armar_url(url_base,query);
+        console.log(query);
+        console.log(url);
+        axios.get(url).then(function(resp) {   
+            for(var i=0; i<resp.data.results.length; i++){
+                 // resultados.push({
+                 // url: resp.data.results[i].permalink,
+                 // precio: resp.data.results[i].price,
+                 // titulo: resp.data.results[i].title
+                 // });
+                 //session.send("Titulo: '%s'\n", resp.data.results[i].title);
+                 session.send("Titulo: "+resp.data.results[i].title+'\n'+"Precio: "+resp.data.results[i].price+'\n'+"Url: "+resp.data.results[i].permalink);
+             }
+            // console.log(resultados);
+             
+             //session.send(JSON.stringify(resultados)); 
+     });
+        session.endDialog(`Encontre.... ${results.response}!`);
+    }
+]);
+bot.dialog('preguntar_tipo_note', [
+    function (session) {
+        builder.Prompts.text(session, 'Que caracteristicas buscas?');
+    },
+    function (session, results) {
+        session.endDialogWithResult(results);
+    }
+]);
+
+/* fin Ml */
 
 /* Opciones  problemas de correo */
 
