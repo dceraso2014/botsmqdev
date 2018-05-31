@@ -23,7 +23,7 @@ const gen = rn.generator({
 
 let numero_ticket = function(){ return gen(500)} ;
  // example outputs → 735
-
+ 
 
 
 // Setup Restify Server
@@ -96,7 +96,7 @@ bot.dialog('/', [
 bot.dialog('/menu', [
     function (session) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)");
-        builder.Prompts.choice(session, "Con que te puedo ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|Recibir Correo Electronico.|(Salir)", { listStyle: 4 });
+        builder.Prompts.choice(session, "Con que te puedo ayudar hoy?", "Problemas con Office?|Problemas con el Correo?|Problemas de impresión?|Su computadora no sirve?|(Salir)", { listStyle: 4 });
     },
     function (session, results) {
         if (results.response && results.response.entity != '(Salir)') {
@@ -104,12 +104,12 @@ bot.dialog('/menu', [
             session.beginDialog('/' + results.response.entity);
         } else {
             // Exit the menu
-            session.endDialog("Ok.. Nos vemos más tarde!");
+            session.endConversation("Ok.. Nos vemos más tarde!");
         }
     },
     function (session, results) {
         // The menu runs a loop until the user chooses to (quit).
-        session.replaceDialog('/menu');
+       // session.replaceDialog('/menu');
     }
 ]).reloadAction('reloadMenu', null, { matches: /^menu|show menu/i });
 
@@ -130,7 +130,27 @@ bot.dialog('/Problemas con Office?', [
 
 bot.dialog('/Microsoft Excel?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        
+        json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en Microsoft Excel fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+
+        session.send("Su ticket fue registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -143,7 +163,27 @@ bot.dialog('/Microsoft Excel?', [
 
 bot.dialog('/Microsoft Word?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+
+            let json_mail = {
+                auth: {
+                    user: "arcorito@newtech.com.ar",
+                    pass: "Passw0rd"
+                }, 
+                from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+                to: '',
+                subject: 'Nuevo Ticket Generado',
+                html: ''
+            };
+    
+            
+            json_mail.to=datos_usuario.sip; 
+            
+            let num_caso_real = numero_ticket();
+            json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en Microsoft Word fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+    
+            nodeoutlook.sendEmail(json_mail);
+
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -156,7 +196,26 @@ bot.dialog('/Microsoft Word?', [
 
 bot.dialog('/Microsoft Power Point?', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        json_mail.to="diego.ceraso@smartqube.com.ar"; 
+        //json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en PowerPoint fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -258,6 +317,7 @@ bot.dialog('/Su computadora no sirve?', [
              //session.send(JSON.stringify(resultados)); 
      });
         session.endDialog(`Encontre.... ${results.response}!`);
+        
     }
 ]);
 bot.dialog('preguntar_tipo_note', [
@@ -275,7 +335,7 @@ bot.dialog('preguntar_tipo_note', [
 
 bot.dialog('/Problemas con el Correo?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No puedo enviar correos|Outlook no coectal al servidor|(Salir)", { listStyle: 4 } );
+                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No puedo enviar correos|Outlook no conecta al servidor|(Salir)", { listStyle: 4 } );
     },
   
     function (session, results) {
@@ -287,7 +347,25 @@ bot.dialog('/Problemas con el Correo?', [
 
 bot.dialog('/No puedo enviar correos', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        
+        json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en Microsoft Outlook fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -300,7 +378,25 @@ bot.dialog('/No puedo enviar correos', [
 
 bot.dialog('/Outlook no coectal al servidor', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        
+        json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas en Microsoft Outlook fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -328,7 +424,25 @@ bot.dialog('/Problemas de impresión?', [
 
 bot.dialog('/No encuentro mi impresora', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        
+        json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas con la impresora fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -341,7 +455,25 @@ bot.dialog('/No encuentro mi impresora', [
 
 bot.dialog('/La impresora no imprime', [
     function (session) {
-        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", numero_ticket);
+        let json_mail = {
+            auth: {
+                user: "arcorito@newtech.com.ar",
+                pass: "Passw0rd"
+            }, 
+            from: 'Bot Arcorito <arcorito@newtech.com.ar>',
+            to: '',
+            subject: 'Nuevo Ticket Generado',
+            html: ''
+        };
+
+        
+        json_mail.to=datos_usuario.sip; 
+        
+        let num_caso_real = numero_ticket();
+        json_mail.html=("Hola <strong>"+session.message.user.name+"</strong><br /><br />Su ticket por problemas con la impresora fue registrado con el Nro "+num_caso_real+", un especialista de mesa de ayuda lo contactara a la brevedad!<br /><br /> Gracias Arcorito!");
+
+        nodeoutlook.sendEmail(json_mail);
+        session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
         builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
@@ -362,7 +494,7 @@ bot.dialog('/Si', [
 
 bot.dialog('/No', [
     function (session) {
-        session.endDialog("Ok.. Nos vemos más tarde!!");
+        session.endConversation("Ok.. Nos vemos más tarde!!");
      }
 
 ]);
