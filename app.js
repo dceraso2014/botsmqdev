@@ -251,7 +251,7 @@ bot.dialog('/Su computadora no sirve?', [
                  // titulo: resp.data.results[i].title
                  // });
                  //session.send("Titulo: '%s'\n", resp.data.results[i].title);
-                 session.send("Titulo: "+resp.data.results[i].title+'\n'+"Precio: "+resp.data.results[i].price+'"\n\n'+"Url: "+resp.data.results[i].permalink);
+                 session.send("Titulo: "+resp.data.results[i].title+'\n\n'+"Precio: "+resp.data.results[i].price+'"\n\n'+"Url: "+resp.data.results[i].permalink);
              }
             // console.log(resultados);
              
