@@ -117,7 +117,7 @@ bot.dialog('/menu', [
 bot.dialog('/Problemas con Office?', [
     function (session, results) {
         //builder.Prompts.choice(session, "What demo would you like to run?", "prompts|picture|cards|list|carousel|receipt|actions|(quit)" );
-        builder.Prompts.choice(session, "Indicame con que tenes problemas.", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
+        builder.Prompts.choice(session, "Indicame con que tenes problemas", "Microsoft Excel?|Microsoft Word?|Microsoft Power Point?|(Salir)", { listStyle: 4 } );
         
     },
   
@@ -216,7 +216,7 @@ bot.dialog('/Microsoft Power Point?', [
         nodeoutlook.sendEmail(json_mail);
 
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara", num_caso_real);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -250,7 +250,7 @@ bot.dialog('/Recibir Correo Electronico.', [
 
 
         session.send("Email Enviado "+JSON.stringify(json_mail)+"");
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -335,7 +335,7 @@ bot.dialog('preguntar_tipo_note', [
 
 bot.dialog('/Problemas con el Correo?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No puedo enviar correos|Outlook no conecta al servidor|(Salir)", { listStyle: 4 } );
+                builder.Prompts.choice(session, "Indicame con que tenes problemas", "No puedo enviar correos|Outlook no conecta al servidor|(Salir)", { listStyle: 4 } );
     },
   
     function (session, results) {
@@ -366,7 +366,7 @@ bot.dialog('/No puedo enviar correos', [
 
         nodeoutlook.sendEmail(json_mail);
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -376,7 +376,7 @@ bot.dialog('/No puedo enviar correos', [
 
 ]);
 
-bot.dialog('/Outlook no coectal al servidor', [
+bot.dialog('/Outlook no conecta al servidor', [
     function (session) {
         let json_mail = {
             auth: {
@@ -397,7 +397,7 @@ bot.dialog('/Outlook no coectal al servidor', [
 
         nodeoutlook.sendEmail(json_mail);
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -412,7 +412,7 @@ bot.dialog('/Outlook no coectal al servidor', [
 
 bot.dialog('/Problemas de impresión?', [
     function (session, results) {
-                builder.Prompts.choice(session, "Indicame con que tenes problemas.", "No encuentro mi impresora|La impresora no imprime|(Salir)", { listStyle: 4 } );
+                builder.Prompts.choice(session, "Indicame con que tenes problemas", "No encuentro mi impresora|La impresora no imprime|(Salir)", { listStyle: 4 } );
     },
   
     function (session, results) {
@@ -443,7 +443,7 @@ bot.dialog('/No encuentro mi impresora', [
 
         nodeoutlook.sendEmail(json_mail);
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
@@ -474,7 +474,7 @@ bot.dialog('/La impresora no imprime', [
 
         nodeoutlook.sendEmail(json_mail);
         session.send("Su ticket fue  registrador con el Nro '%s', un especialista de mesa de ayuda lo contactara a la brevedad!", num_caso_real);
-        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?.", "Si|No", { listStyle: 4 });
+        builder.Prompts.choice(session, "Te podemos ayudar con algo mas?", "Si|No", { listStyle: 4 });
     },
     function (session, results) {
         //session.send("You chose '%s'", results.response.entity);
