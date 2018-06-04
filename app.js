@@ -2,9 +2,13 @@
 A simple echo bot for the Microsoft Bot Framework. 
 -----------------------------------------------------------------------------*/
 
-const restify = require('restify');
+//const restify = require('restify');
 const builder = require('botbuilder');
 const nodeoutlook = require('nodejs-nodemailer-outlook');
+
+const express = require('express');
+
+
 
 const axios = require("axios");
 
@@ -27,17 +31,27 @@ let numero_ticket = function(){ return gen(500)} ;
 
 
 // Setup Restify Server
-const server = restify.createServer();
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-   console.log('%s listening to %s', server.name, server.url); 
-});
+//const server = restify.createServer();
+//server.listen(process.env.port || process.env.PORT || 3978, function () {
+//   console.log('%s listening to %s', server.name, server.url); 
+//});
+
+
+const server = express();
+const PORT = 3000;
+
+server.listen(PORT,()=>{
+
+    console.log(`Servidor levantando en puerto ${PORT}.....`);
+
+} );
   
 // Create chat connector for communicating with the Bot Framework Service
 const connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword,
     //openIdMetadata: process.env.BotOpenIdMetadata
-});
+}); 
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
