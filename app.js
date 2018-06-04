@@ -83,6 +83,7 @@ bot.dialog('/', [
        
        session.send("Hola Soy Arcorito, tu asistente virtual.")
         session.send("En que te puedo ayudar hoy %s .", session.message.user.name);
+        session.send(JSON.stringify(session.message));
         //session.send("Tu correo electronico es: %s ." , sipcorto);
         //session.send("Hi... I'm the Microsoft Bot Framework demo bot for Skype. I can show you everything you can use our Bot Builder SDK to do on Skype.");
         session.beginDialog('/menu');
@@ -311,11 +312,20 @@ bot.dialog('/Su computadora no sirve?', [
                  // });
                  //session.send("Titulo: '%s'\n", resp.data.results[i].title);
                  session.send("Titulo: "+resp.data.results[i].title+'\n\n'+"Precio: "+resp.data.results[i].price+'\n\n'+"Url: "+resp.data.results[i].permalink);
-             }
+                 
+                }
+                
+                return true;
             // console.log(resultados);
              
              //session.send(JSON.stringify(resultados)); 
-     });
+     }).then((resp)=>{  
+         if(resp){session.send("mensaje post mercado libre");
+    
+    
+        }
+    else{ console.log("error en respuesta"); }
+});
         session.endDialog(`Encontre.... ${results.response}!`);
         
     }
