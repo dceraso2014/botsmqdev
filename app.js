@@ -41,11 +41,14 @@ const server = express();
 const PORT = 3978;
 
 server.listen(PORT,()=>{
-
     console.log(`Servidor levantando en puerto ${PORT}.....`);
-
-} );
+});
   
+/*
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+*/
 // Create chat connector for communicating with the Bot Framework Service
 const connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
